@@ -46,6 +46,12 @@ except:
 # line = int(input("enter a number"))
 while True:
     battery = fabkit.readline().decode().strip()
+
+    # hack fix to not run below code if nothing being read in from serial port
+    if battery == '':
+        continue
+
+    battery = int(battery)
     print(battery)
     cv2.destroyAllWindows()
 
@@ -59,7 +65,7 @@ while True:
     elif (madMarsTimer >= madMarsSongLength):
         madMarsTimer = 0
 
-    if battery > str(50).encode():
+    if battery > 50:
         locker = True
         cv2.imshow('Happy Moments', happyMars)
         cv2.waitKey(1000)
@@ -68,15 +74,19 @@ while True:
         pygame.mixer.music.play(1, happytimer, 1000)
         seconds = time.time() #get start time
         while locker == True:
-            battery = fabkit.readline()
+            battery = fabkit.readline().decode().strip()
+            if battery == '':
+                continue
+
+            battery = int(battery)
             print(battery)
             # line = int(input("enter a number"))
-            if battery <= str(50).encode():
+            if battery <= 50:
                 pygame.mixer.music.fadeout(1000)
                 happytimer = (time.time() + happytimer) - seconds #get the current amount of time passed since song started
                 locker = False
 
-    elif battery > str(20).encode() and battery <= str(50).encode():
+    elif battery > 20 and battery <= 50:
         locker = True
         cv2.imshow('not so happy moments', mediumMars)
         cv2.waitKey(1000)
@@ -85,15 +95,19 @@ while True:
         pygame.mixer.music.play(1, notSoHappyTimer, 1000)
         seconds = time.time() #get start time
         while locker == True:
-            battery = fabkit.readline()
+            battery = fabkit.readline().decode().strip()
+            if battery == '':
+                continue
+
+            battery = int(battery)
             print(battery)
             # line = int(input("enter a number"))
-            if battery < str(20).encode() or battery > str(50).encode():
+            if battery < 20 or battery > 50:
                 pygame.mixer.music.fadeout(1000)
                 notSoHappyTimer = (time.time() + notSoHappyTimer) - seconds #get the current amount of time passed since song started
                 locker = False
 
-    elif battery <= str(20).encode():
+    elif battery <= 20:
         locker = True
         cv2.imshow('DANGER MOMENTS', madMars)
         cv2.waitKey(1000)
@@ -102,10 +116,15 @@ while True:
         pygame.mixer.music.play(1, madMarsTimer, 1000)
         seconds = time.time() #get start time
         while locker == True:
-            battery = fabkit.readline()
+            battery = fabkit.readline().decode().strip()
+            if battery == '':
+                continue
+
+            battery = int(battery)
+
             print(battery)
             # line = int(input("enter a number"))
-            if battery >= str(20).encode():
+            if battery >= 20:
                 pygame.mixer.music.fadeout(1000)
                 madMarsTimer = (time.time() + madMarsTimer) - seconds #get the current amount of time passed since song started
                 locker = False
