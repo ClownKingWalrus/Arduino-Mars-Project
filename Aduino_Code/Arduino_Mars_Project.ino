@@ -3,7 +3,7 @@ const int led = 22;
 const int sensorPin = A0;
 int sensor;
 const int threshHold = 400;
-int battery;
+int battery = 100;
 //inialize seven seg object
 //.setNumber(numberyouWant, decimalPlace_rightToLeft)
 SevSeg sevSeg;

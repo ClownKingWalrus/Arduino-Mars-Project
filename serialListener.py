@@ -38,7 +38,7 @@ if happyMars is None or mediumMars is None or madMars is None:
     exit('failed to load images')
 
 try:
-    fabkit = serial.Serial('COM4', 9600) #ensure on right comport
+    fabkit = serial.Serial('COM5', 9600) #ensure on right comport
 except:
     print('failed to connect')
     exit()
